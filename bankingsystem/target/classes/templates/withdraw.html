@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Withdraw Money</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<h2>Withdraw Money</h2>
+
+<form action="/withdraw" method="post">
+    <label>Enter Amount:</label>
+    <input type="number" name="amount" placeholder="Enter amount" required>
+    <button type="submit">Withdraw</button>
+</form>
+
+<br>
+<a href="/dashboard">Back to Dashboard</a>
+</body>
+</html>

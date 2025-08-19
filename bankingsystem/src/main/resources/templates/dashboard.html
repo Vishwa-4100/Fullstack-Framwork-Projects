@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<h2>Welcome, <span th:text="${account.name}"></span></h2>
+<p>Account Balance: ₹ <span th:text="${account.balance}"></span></p>
+
+<br>
+<a href="/deposit">Deposit Money</a> |
+<a href="/withdraw">Withdraw Money</a> |
+<a href="/balance">Check Balance</a> |
+<a href="/transactions">View Transactions</a> |
+<a href="/logout">Logout</a>
+</body>
+</html>
