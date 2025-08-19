@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Excel Upload / Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{--primary:#2563eb}
+    body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#111}
+    .wrap{max-width:1000px;margin:0 auto}
+    h1{margin:0 0 6px}
+    p.muted{color:#555;margin-top:0}
+    form,.actions{margin:16px 0}
+    input[type=file]{padding:6px}
+    button,a.button{
+      display:inline-block;padding:10px 16px;border:none;border-radius:8px;
+      background:var(--primary);color:#fff;text-decoration:none;cursor:pointer
+    }
+    button:hover,a.button:hover{filter:brightness(0.95)}
+    .msg{margin:12px 0;font-weight:bold}
+    .ok{color:#16a34a}.err{color:#dc2626}
+    table{width:100%;border-collapse:collapse;margin-top:16px}
+    th,td{border:1px solid #e5e7eb;padding:10px;text-align:center}
+    th{background:#f3f4f6}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Excel Sheet Handling</h1>
+  <p class="muted">Columns: <b>Name, Email, Salary, In Time, Out Time</b>. Time format: <code>yyyy-MM-dd HH:mm</code> or Excel DateTime.</p>
+
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".xlsx" required />
+    <button type="submit">Upload Excel</button>
+  </form>
+
+  <div class="actions">
+    <a href="/download" class="button">Download Current Data (.xlsx)</a>
+  </div>
+
+  <div class="msg ok" th:if="${param.success}">✅ Upload Successful</div>
+  <div class="msg err" th:if="${param.error}">❌ Upload Failed</div>
+
+  <h2>Employees</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>#</th><th>Name</th><th>Email</th><th>Salary</th><th>In Time</th><th>Out Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="emp, i : ${employees}">
+      <td th:text="${i.index + 1}">1</td>
+      <td th:text="${emp.name}">Name</td>
+      <td th:text="${emp.email}">email@example.com</td>
+      <td th:text="${emp.salary}">0</td>
+      <td th:text="${emp.inTime != null ? #temporals.format(emp.inTime, 'yyyy-MM-dd HH:mm') : ''}"></td>
+      <td th:text="${emp.outTime != null ? #temporals.format(emp.outTime, 'yyyy-MM-dd HH:mm') : ''}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
